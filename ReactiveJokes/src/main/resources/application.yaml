@@ -1,0 +1,14 @@
+server:
+  port: 8081
+
+spring:
+  r2dbc:
+    url: r2dbc:mysql://localhost:3306/jokes_db?serverTimezone=Asia/Kolkata
+    username: root
+    password: root
+
+
+logging:
+  level:
+    org.springframework.web: DEBUG
+    org.springdoc: DEBUG
