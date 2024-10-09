@@ -22,7 +22,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
 		
 		return new Docket(DocumentationType.SWAGGER_2).enable(true)
 				.apiInfo(new ApiInfoBuilder().build()).select()
-				.apis(RequestHandlerSelectors.basePackage("com.nokia.reactivejokess.controller"))
+				.apis(RequestHandlerSelectors.basePackage("com.nokia.reactivejokes.controller"))
 				.paths(PathSelectors.any())
 				.build()
 				.apiInfo(apiInfo());
