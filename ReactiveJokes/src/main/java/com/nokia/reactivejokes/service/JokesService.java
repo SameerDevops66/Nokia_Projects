@@ -1,4 +1,4 @@
-package com.nokia.reactivejokess.service;
+package com.nokia.reactivejokes.service;
 
 import java.time.Duration;
 import java.util.List;
@@ -8,11 +8,11 @@ import java.util.stream.Collectors;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
-import com.nokia.reactivejokess.domain.JokesRepository;
-import com.nokia.reactivejokess.domain.JokesRequestDto;
-import com.nokia.reactivejokess.domain.JokesResponseDto;
-import com.nokia.reactivejokess.error.JokesException;
-import com.nokia.reactivejokess.infrastructure.JokesPublicApiClient;
+import com.nokia.reactivejokes.domain.JokesRepository;
+import com.nokia.reactivejokes.domain.JokesRequestDto;
+import com.nokia.reactivejokes.domain.JokesResponseDto;
+import com.nokia.reactivejokes.error.JokesException;
+import com.nokia.reactivejokes.infrastructure.JokesPublicApiClient;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

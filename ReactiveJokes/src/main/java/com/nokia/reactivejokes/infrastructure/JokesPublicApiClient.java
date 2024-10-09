@@ -1,11 +1,11 @@
-package com.nokia.reactivejokess.infrastructure;
+package com.nokia.reactivejokes.infrastructure;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import com.nokia.reactivejokess.domain.JokesRequestDto;
-import com.nokia.reactivejokess.error.JokesException;
+import com.nokia.reactivejokes.domain.JokesRequestDto;
+import com.nokia.reactivejokes.error.JokesException;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

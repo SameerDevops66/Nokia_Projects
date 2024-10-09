@@ -1,4 +1,4 @@
-package com.nokia.reactivejokess.infrastructure;
+package com.nokia.reactivejokes.infrastructure;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

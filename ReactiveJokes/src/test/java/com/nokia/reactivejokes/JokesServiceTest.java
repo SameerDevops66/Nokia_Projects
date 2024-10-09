@@ -1,9 +1,16 @@
-package com.nokia.reactivejokess;
+package com.nokia.reactivejokes;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import com.nokia.reactivejokes.domain.JokesRepository;
+import com.nokia.reactivejokes.domain.JokesRequestDto;
+import com.nokia.reactivejokes.domain.JokesResponseDto;
+import com.nokia.reactivejokes.error.JokesException;
+import com.nokia.reactivejokes.infrastructure.JokesPublicApiClient;
+import com.nokia.reactivejokes.service.JokesService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
@@ -11,13 +18,6 @@ import static org.mockito.Mockito.when;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
-
-import com.nokia.reactivejokess.domain.JokesRepository;
-import com.nokia.reactivejokess.domain.JokesRequestDto;
-import com.nokia.reactivejokess.domain.JokesResponseDto;
-import com.nokia.reactivejokess.error.JokesException;
-import com.nokia.reactivejokess.infrastructure.JokesPublicApiClient;
-import com.nokia.reactivejokess.service.JokesService;
 
 import reactor.core.publisher.Flux;
 import reactor.test.StepVerifier;

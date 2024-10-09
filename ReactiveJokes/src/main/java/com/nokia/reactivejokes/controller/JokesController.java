@@ -1,4 +1,4 @@
-package com.nokia.reactivejokess.controller;
+package com.nokia.reactivejokes.controller;
 
 import java.util.List;
 
@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nokia.reactivejokess.domain.JokesResponseDto;
-import com.nokia.reactivejokess.error.JokesException;
-import com.nokia.reactivejokess.service.JokesService;
+import com.nokia.reactivejokes.domain.JokesResponseDto;
+import com.nokia.reactivejokes.error.JokesException;
+import com.nokia.reactivejokes.service.JokesService;
 
 import reactor.core.publisher.Mono;
 

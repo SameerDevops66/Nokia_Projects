@@ -1,4 +1,4 @@
-package com.nokia.reactivejokess;
+package com.nokia.reactivejokes;
 
 import java.io.IOException;
 
@@ -6,18 +6,16 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import okhttp3.mockwebserver.MockResponse;
-
-
-import com.nokia.reactivejokess.domain.JokesRequestDto;
-import com.nokia.reactivejokess.error.JokesException;
-import com.nokia.reactivejokess.infrastructure.JokesPublicApiClient;
-
 import okhttp3.mockwebserver.MockWebServer;
 import reactor.core.publisher.Flux;
 import reactor.test.StepVerifier;
 
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.web.reactive.function.client.WebClient;
+
+import com.nokia.reactivejokes.domain.JokesRequestDto;
+import com.nokia.reactivejokes.error.JokesException;
+import com.nokia.reactivejokes.infrastructure.JokesPublicApiClient;
 
 @SpringBootTest
 public class JokesPublicApiClientTests {

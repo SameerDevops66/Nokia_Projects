@@ -1,4 +1,4 @@
-package com.nokia.reactivejokess.error;
+package com.nokia.reactivejokes.error;
 
 import java.util.HashMap;
 import java.util.Map;

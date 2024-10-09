@@ -1,4 +1,4 @@
-package com.nokia.reactivejokess;
+package com.nokia.reactivejokes;
 
 
 import org.springframework.boot.SpringApplication;

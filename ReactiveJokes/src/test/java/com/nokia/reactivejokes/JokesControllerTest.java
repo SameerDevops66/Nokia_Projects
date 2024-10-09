@@ -1,11 +1,7 @@
-package com.nokia.reactivejokess;
+package com.nokia.reactivejokes;
 
 import org.mockito.Mock;
 import static org.mockito.Mockito.when;
-
-import com.nokia.reactivejokess.controller.JokesController;
-import com.nokia.reactivejokess.domain.JokesResponseDto;
-import com.nokia.reactivejokess.service.JokesService;
 
 import reactor.core.publisher.Mono;
 
@@ -13,6 +9,11 @@ import org.springframework.http.MediaType;
 
 import org.mockito.InjectMocks;
 import org.springframework.test.web.reactive.server.WebTestClient;
+
+import com.nokia.reactivejokes.controller.JokesController;
+import com.nokia.reactivejokes.domain.JokesResponseDto;
+import com.nokia.reactivejokes.service.JokesService;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;

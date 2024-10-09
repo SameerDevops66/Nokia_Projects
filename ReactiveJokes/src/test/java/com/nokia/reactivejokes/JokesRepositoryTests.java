@@ -1,11 +1,11 @@
-package com.nokia.reactivejokess;
+package com.nokia.reactivejokes;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.r2dbc.DataR2dbcTest;
 
-import com.nokia.reactivejokess.domain.JokesRepository;
-import com.nokia.reactivejokess.domain.JokesRequestDto;
+import com.nokia.reactivejokes.domain.JokesRepository;
+import com.nokia.reactivejokes.domain.JokesRequestDto;
 
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;

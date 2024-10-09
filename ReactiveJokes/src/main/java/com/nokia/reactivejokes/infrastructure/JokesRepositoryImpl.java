@@ -1,4 +1,4 @@
-package com.nokia.reactivejokess.infrastructure;
+package com.nokia.reactivejokes.infrastructure;
 
 import java.util.List;
 import java.util.UUID;
@@ -6,8 +6,8 @@ import java.util.UUID;
 import org.reactivestreams.Publisher;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 
-import com.nokia.reactivejokess.domain.JokesRepository;
-import com.nokia.reactivejokess.domain.JokesRequestDto;
+import com.nokia.reactivejokes.domain.JokesRepository;
+import com.nokia.reactivejokes.domain.JokesRequestDto;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

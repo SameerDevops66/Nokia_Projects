@@ -1,4 +1,4 @@
-package com.nokia.reactivejokess.error;
+package com.nokia.reactivejokes.error;
 
 public class JokesException extends RuntimeException {
 	

@@ -1,4 +1,4 @@
-package com.nokia.reactivejokess.domain;
+package com.nokia.reactivejokes.domain;
 
 import org.springframework.data.relational.core.mapping.Table;
 
