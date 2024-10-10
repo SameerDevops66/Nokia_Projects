@@ -6,10 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 @SpringBootApplication
-public class ReactivejokessApplication {
+public class ReactivejokesApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ReactivejokessApplication.class, args);
+		SpringApplication.run(ReactivejokesApplication.class, args);
 	}
 
 }

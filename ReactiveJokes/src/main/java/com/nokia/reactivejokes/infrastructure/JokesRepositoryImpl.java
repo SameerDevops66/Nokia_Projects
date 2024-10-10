@@ -151,5 +151,4 @@ private final ReactiveCrudRepository<JokesRequestDto, UUID> jokeCrudRepository;
 			// TODO Auto-generated method stub
 			return null;
 		}
-
 }

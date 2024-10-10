@@ -35,9 +35,6 @@ public class JokesService {
                 })
             .buffer(batchSize)
             .flatMap(jokesBatch -> {
-            	 if (jokesBatch == null || jokesBatch.isEmpty()) {
-            	        return Mono.error(new JokesException("No jokes to save"));
-            	    }
                 return jokesRepository.saveAll(jokesBatch)
                     .doOnError(e -> handleDatabaseError(e))
                     .thenMany(Flux.just(jokesBatch));
@@ -81,9 +78,6 @@ public class JokesService {
 
     
     public List<JokesResponseDto> transformToResponseDto(List<JokesRequestDto> jokesBatch) {
-    	if (jokesBatch == null || jokesBatch.isEmpty()) {
-            throw new JokesException("No valid jokes found for transformation.");
-    	}
         return jokesBatch.stream()
             .map(joke -> new JokesResponseDto(
                 UUID.randomUUID().toString(),

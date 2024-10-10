@@ -20,7 +20,7 @@ public class JokesPublicApiClient {
     }
     
     public Flux<JokesRequestDto> fetchBatch(int batchSize) {
-        return Flux.range(1, batchSize + 1)
+        return Flux.range(1, batchSize)
         		.log()
                 .flatMap(i -> webClient.get()
                         .uri("/random_joke")

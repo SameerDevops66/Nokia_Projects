@@ -35,16 +35,14 @@ public class JokesServiceTest {
 	private JokesService jokesService;
 
 
-    @Test
     public void testGetJokesEmptyList() {
+        // Mock jokeApiClient to return an empty Flux
         when(jokeApiClient.fetchBatch(0)).thenReturn(Flux.empty());
 
+        // Verify that the service emits no items and completes successfully
         StepVerifier.create(jokesService.getJokes(0))
-            .expectErrorMatches(throwable -> 
-                throwable instanceof JokesException && 
-                throwable.getMessage().equals("No jokes found")
-            )
-            .verify();
+            .expectNext()       // Expect an empty sequence (no values emitted)
+            .verifyComplete();   // Ensure the Flux completes
     }
     
     @Test

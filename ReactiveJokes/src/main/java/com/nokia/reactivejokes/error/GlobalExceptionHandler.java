@@ -22,15 +22,6 @@ public class GlobalExceptionHandler {
 	                    .body(errorResponse);
 	        }
 	        
-	        if (ex.getMessage().contains("Too Many Requests")) {
-	        	
-	            errorResponse.put("error", "To Many Requests");
-	            errorResponse.put("message", ex.getMessage());
-	            return ResponseEntity
-	                    .status(HttpStatus.TOO_MANY_REQUESTS)
-	                    .body(errorResponse);
-	        }
-	        
 	        else {
 	            errorResponse.put("error", "Bad Request");
 	            errorResponse.put("message", ex.getMessage());

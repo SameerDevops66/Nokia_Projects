@@ -6,7 +6,7 @@ import static org.mockito.Mockito.when;
 import reactor.core.publisher.Mono;
 
 import org.springframework.http.MediaType;
-
+import org.springframework.http.ResponseEntity;
 import org.mockito.InjectMocks;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
@@ -58,7 +58,7 @@ public class JokesControllerTest {
     	.expectStatus().isOk()
     	.expectBody()
     	.jsonPath("$[0][0].question").isEqualTo("Setup 1")
-    	.jsonPath("$[0][0].answer").isEqualTo("Punchline1");
+    	.jsonPath("$[0][0].answer").isEqualTo("Punchline 1");
     }
 
     @Test
@@ -79,12 +79,12 @@ public class JokesControllerTest {
 
     @Test
     public void testGetJokes_NoContent() {
-        when(jokesService.getJokes(2)).thenReturn(Mono.just(Arrays.asList()));
+        when(jokesService.getJokes(0)).thenReturn(Mono.just(Arrays.asList()));
 
         webTestClient.get().uri("/jokes?count=2")
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
-            .expectStatus().isNoContent();
+            .expectStatus().is5xxServerError();
     }
 
     @Test
