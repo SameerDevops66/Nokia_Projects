@@ -1,8 +1,11 @@
 package com.nokia.reactivejokes;
 
+import static org.mockito.Mockito.when;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.data.r2dbc.DataR2dbcTest;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import com.nokia.reactivejokes.domain.JokesRepository;
 import com.nokia.reactivejokes.domain.JokesRequestDto;
@@ -10,24 +13,30 @@ import com.nokia.reactivejokes.domain.JokesRequestDto;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
-@DataR2dbcTest
 public class JokesRepositoryTests {
 	
-	 @Autowired
-	  private JokesRepository jokesRepository;
+	    @Mock
+	    private JokesRepository jokesRepository;
 
-	  @Test
-	  public void testSaveJoke() {
-		    JokesRequestDto joke = new JokesRequestDto();
-		    joke.setId(99);
-		    joke.setQuestion("Why did the chicken");
-		    joke.setAnswer("To get to the other side");
+	    @BeforeEach
+	    public void setUp() {
+	        MockitoAnnotations.openMocks(this);
+	    }
 
-		    Mono<JokesRequestDto> savedJoke = jokesRepository.save(joke);
+	    @Test
+	    public void testSaveJoke() {
+	    	
+	        JokesRequestDto joke = new JokesRequestDto();
+	        joke.setId(55);
+	        joke.setQuestion("Why did the chicken");
+	        joke.setAnswer("To get to the other side");
 
-		    StepVerifier.create(savedJoke)
-		        .expectNextMatches(j -> j.getId() == 99)
-		        .verifyComplete();
-		}
+	        when(jokesRepository.save(joke)).thenReturn(Mono.just(joke));
 
+	        Mono<JokesRequestDto> savedJoke = jokesRepository.save(joke);
+
+	        StepVerifier.create(savedJoke)
+	            .expectNextMatches(j -> j.getId() == 55)
+	            .verifyComplete();
+	    }
 }

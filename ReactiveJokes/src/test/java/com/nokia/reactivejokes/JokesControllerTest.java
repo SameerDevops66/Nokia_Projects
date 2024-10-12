@@ -33,10 +33,9 @@ public class JokesControllerTest {
 
 	private WebTestClient webTestClient;
 	
-	@SuppressWarnings("deprecation")
 	@BeforeEach
-	private void setup() {
-		MockitoAnnotations.initMocks(this);
+	public void setup() {
+		MockitoAnnotations.openMocks(this);
 		webTestClient = bindToController(jokesController).build();
 		
 	}

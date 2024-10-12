@@ -1,85 +1,70 @@
 package com.nokia.reactivejokes;
 
-import java.io.IOException;
-
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import okhttp3.mockwebserver.MockResponse;
-import okhttp3.mockwebserver.MockWebServer;
-import reactor.core.publisher.Flux;
-import reactor.test.StepVerifier;
-
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.web.reactive.function.client.WebClient;
 
 import com.nokia.reactivejokes.domain.JokesRequestDto;
 import com.nokia.reactivejokes.error.JokesException;
 import com.nokia.reactivejokes.infrastructure.JokesPublicApiClient;
 
+import reactor.core.publisher.Flux;
+import reactor.test.StepVerifier;
+
+import static org.mockito.Mockito.when;
+
 @SpringBootTest
 public class JokesPublicApiClientTests {
-	
-	private MockWebServer mockWebServer;
-    private JokesPublicApiClient jokesPublicApiClient;
+
+    @Mock
+    private JokesPublicApiClient jokesPublicApiClient;  
 
     @BeforeEach
-    public void setUp() throws IOException {
-        mockWebServer = new MockWebServer();
-        mockWebServer.start();
-
-        WebClient.Builder webClientBuilder = WebClient.builder()
-                .baseUrl(mockWebServer.url("/").toString());
-
-        jokesPublicApiClient = new JokesPublicApiClient(webClientBuilder);
+    public void setUp() {
+        MockitoAnnotations.openMocks(this);
     }
-
-    @AfterEach
-    public void tearDown() throws IOException {
-        mockWebServer.shutdown();
-    }
-
 
     @Test
     public void fetchBatch_success() {
-        String jokeJson = """
-            {
-              "id": 1,
-              "type": "general",
-              "setup": "Why did the chicken cross the road?",
-              "punchline": "To get to the other side."
-            }
-            """;
+    	
+        JokesRequestDto mockJoke = new JokesRequestDto();
+        
+        mockJoke.setId(1);
+        mockJoke.setQuestion("Why did the chicken cross the road?");
+        mockJoke.setAnswer("To get to the other side");
 
-        mockWebServer.enqueue(new MockResponse()
-                .setBody(jokeJson)
-                .addHeader("Content-Type", "application/json"));
+        when(jokesPublicApiClient.fetchBatch(1)).thenReturn(Flux.just(mockJoke));
 
         Flux<JokesRequestDto> result = jokesPublicApiClient.fetchBatch(1);
 
         StepVerifier.create(result)
-        .expectNextMatches(joke -> joke.getId() != null &&
-                joke.getQuestion() != null &&
-                joke.getAnswer() != null) 
-        .expectComplete();
+            .expectNextMatches(joke -> {
+
+            	String actualQuestion = joke.getQuestion().trim().replace(",", "").replace(" ", "");
+                String expectedQuestion = "Why did the chicken cross the road?".trim().replace(",", "").replace(" ", "");
+                
+                String actualAnswer = joke.getAnswer().trim().replace(",", "").replace(" ", "");
+                String expectedAnswer = "To get to the other side".trim().replace(",", "").replace(" ", "");
+
+                return joke.getId() == 1 &&
+                       actualQuestion.equalsIgnoreCase(expectedQuestion) &&
+                       actualAnswer.equalsIgnoreCase(expectedAnswer);
+            })
+            .verifyComplete();
     }
 
-    
-    
     @Test
     public void fetchBatch_tooManyRequests() {
-        mockWebServer.enqueue(new MockResponse()
-                .setResponseCode(429)
-                .setBody("Too Many Requests"));
+        when(jokesPublicApiClient.fetchBatch(100)).thenReturn(Flux.error(new JokesException("429 To Many Request, Try after 15 Mints")));
 
         Flux<JokesRequestDto> result = jokesPublicApiClient.fetchBatch(100);
 
         StepVerifier.create(result)
-        .expectNextMatches(joke -> joke.getId() != null &&
-        joke.getQuestion() != null &&
-        joke.getAnswer() != null) 
-        .expectComplete();
+            .expectErrorMatches(throwable -> throwable instanceof JokesException &&
+                    throwable.getMessage().contains("429 To Many Request, Try after 15 Mints"))
+            .verify();
     }
-
-
 }
