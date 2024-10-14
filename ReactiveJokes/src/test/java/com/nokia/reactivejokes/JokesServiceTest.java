@@ -35,6 +35,26 @@ public class JokesServiceTest {
     @InjectMocks
     private JokesService jokesService;
 
+    
+    
+    @Test
+    public void testGetJokesSuccess() {
+        List<JokesRequestDto> mockJokesBatch = List.of(
+            new JokesRequestDto(1, "Why did the chicken cross the road?", "To get to the other side."),
+            new JokesRequestDto(2, "What do you call a fish with no eyes?", "A fsh.")
+        );
+
+        when(jokeApiClient.fetchBatch(2)).thenReturn(Flux.fromIterable(mockJokesBatch));
+        when(jokesRepository.save(mockJokesBatch.get(0))).thenReturn(Mono.just(mockJokesBatch.get(0)));
+        when(jokesRepository.save(mockJokesBatch.get(1))).thenReturn(Mono.just(mockJokesBatch.get(1)));
+
+        StepVerifier.create(jokesService.getJokes(2))
+            .expectNextMatches(joke -> joke.getQuestion().equals("Why did the chicken cross the road?"))
+            .expectNextMatches(joke -> joke.getQuestion().equals("What do you call a fish with no eyes?"))
+            .verifyComplete();
+    }
+    
+    
     @Test
     public void testGetJokesEmptyList() {
         when(jokeApiClient.fetchBatch(0)).thenReturn(Flux.empty());
