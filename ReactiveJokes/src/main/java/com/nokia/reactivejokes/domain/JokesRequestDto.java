@@ -48,6 +48,7 @@ public class JokesRequestDto {
 	public JokesRequestDto(int i, String string, String string2) {
 	   
 	}
+	
     
     @Override
 	public String toString() {

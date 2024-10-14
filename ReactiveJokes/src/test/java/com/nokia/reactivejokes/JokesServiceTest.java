@@ -59,4 +59,15 @@ public class JokesServiceTest {
         assertEquals(expectedResponseBatch.size(), actualResponse.size());
     }
     
+    @Test
+    public void testGetJokesThrowsJokesException() {
+        when(jokeApiClient.fetchBatch(1)).thenReturn(Flux.error(new JokesException("API error")));
+
+        StepVerifier.create(jokesService.getJokes(1))
+            .expectErrorMatches(throwable -> throwable instanceof JokesException &&
+                    throwable.getMessage().equals("API error"))
+            .verify();
+    }
+    
+    
 }
