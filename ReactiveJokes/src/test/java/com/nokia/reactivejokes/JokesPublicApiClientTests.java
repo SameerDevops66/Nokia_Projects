@@ -137,4 +137,6 @@ public class JokesPublicApiClientTests {
                     throwable.getMessage().contains("429 To Many Request, Try after 15 Mints"))
             .verify();
     }
+    
+    
 }

@@ -11,27 +11,27 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 	
-	@ExceptionHandler(JokesException.class)
-	 public ResponseEntity<Map<String, String>> handleJokesException(JokesException ex) {
-	        Map<String, String> errorResponse = new HashMap<>();
+//	@ExceptionHandler(JokesException.class)
+//	 public ResponseEntity<Map<String, String>> handleJokesException(JokesException ex) {
+////	        Map<String, String> errorResponse = new HashMap<>();
+//	        
+//	        if (ex.getMessage().contains("Database")) {
+//	            errorResponse.put("error", "Database Error");
+//	            return ResponseEntity
+//	                    .status(HttpStatus.SERVICE_UNAVAILABLE)
+//	                    .body(errorResponse);
+//	        }
+//	        
+//	        else {
+//	            errorResponse.put("error", "Bad Request");
+//	            errorResponse.put("message", ex.getMessage());
+//	            return ResponseEntity
+//	                    .status(HttpStatus.BAD_REQUEST)
+//	                    .body(errorResponse);
+//	        }
 	        
-	        if (ex.getMessage().contains("Database")) {
-	            errorResponse.put("error", "Database Error");
-	            return ResponseEntity
-	                    .status(HttpStatus.SERVICE_UNAVAILABLE)
-	                    .body(errorResponse);
-	        }
 	        
-	        else {
-	            errorResponse.put("error", "Bad Request");
-	            errorResponse.put("message", ex.getMessage());
-	            return ResponseEntity
-	                    .status(HttpStatus.BAD_REQUEST)
-	                    .body(errorResponse);
-	        }
-	        
-	        
-	    }
+//	    }
 
 	    @ExceptionHandler(Exception.class)
 	    public ResponseEntity<Map<String, String>> handleGenericException(Exception ex) {

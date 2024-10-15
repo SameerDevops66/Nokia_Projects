@@ -31,12 +31,11 @@ public class JokesService {
     public Mono<List<List<JokesResponseDto>>> getJokes(int count) {
         int batchSize = 10;
         return getJokesInBatches(count, batchSize)
-        		.onBackpressureBuffer(batchSize, joke -> {
-                })
+        		.onBackpressureBuffer(batchSize)
             .buffer(batchSize)
             .flatMap(jokesBatch -> {
                 return jokesRepository.saveAll(jokesBatch)
-                    .doOnError(e -> handleDatabaseError(e))
+                    //.doOnError(e -> handleDatabaseError(e))
                     .thenMany(Flux.just(jokesBatch));
             })
             .map(this::transformToResponseDto)
@@ -68,13 +67,13 @@ public class JokesService {
     }
 
    
-    private void handleDatabaseError(Throwable e) {
-        if (e instanceof DataAccessException) {
-            throw new JokesException("Database is down, please try again later.");
-        } else {
-            throw new JokesException("Invalid joke request.");
-        }
-    }
+//    private void handleDatabaseError(Throwable e) {
+//        if (e instanceof DataAccessException) {
+//            throw new JokesException("Database is down, please try again later.");
+//        } else {
+//            throw new JokesException("Invalid joke request.");
+//        }
+//    }
 
     
     public List<JokesResponseDto> transformToResponseDto(List<JokesRequestDto> jokesBatch) {

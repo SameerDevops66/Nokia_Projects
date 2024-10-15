@@ -25,9 +25,6 @@ public class JokesPublicApiClient {
                 .flatMap(i -> webClient.get()
                         .uri("/random_joke")
                         .retrieve()
-                        .onStatus(status -> status == HttpStatus.TOO_MANY_REQUESTS, 
-                        response -> Mono.error(new JokesException("429 To Many Request, Try after 15 Mints"))
-                        )
                         .bodyToMono(JokesRequestDto.class));
         }
 

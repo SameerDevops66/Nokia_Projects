@@ -12,8 +12,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Data
-@AllArgsConstructor
 @NoArgsConstructor
 
 @Table("jokes")
