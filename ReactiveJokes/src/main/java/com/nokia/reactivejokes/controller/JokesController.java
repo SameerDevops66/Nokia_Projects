@@ -17,6 +17,7 @@ import com.nokia.reactivejokes.service.JokesService;
 //
 //import io.swagger.v3.oas.annotations.Operation;
 import reactor.core.publisher.Mono;
+import reactor.util.annotation.Nullable;
 
 @RestController
 public class JokesController {
@@ -27,10 +28,6 @@ public class JokesController {
 	        this.jokesService = jokesService;
 	    }
 	
-//	 @Operation(summary = "Returns a list of jokes", responses = {
-//		        @ApiResponse(description = "A JSON array of jokes", responseCode = "200", 
-//		            content = @Content(mediaType = "application/json",
-//		                schema = @Schema(implementation = JokesResponseDto.class)))})
 	 @GetMapping("/jokes")
 	 public Mono<ResponseEntity<List<List<JokesResponseDto>>>> getJokes(@RequestParam Integer count) {
 	     return jokesService.getJokes(count)

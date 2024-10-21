@@ -7,31 +7,57 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 	
-//	@ExceptionHandler(JokesException.class)
-//	 public ResponseEntity<Map<String, String>> handleJokesException(JokesException ex) {
-////	        Map<String, String> errorResponse = new HashMap<>();
-//	        
-//	        if (ex.getMessage().contains("Database")) {
-//	            errorResponse.put("error", "Database Error");
-//	            return ResponseEntity
-//	                    .status(HttpStatus.SERVICE_UNAVAILABLE)
-//	                    .body(errorResponse);
-//	        }
-//	        
-//	        else {
-//	            errorResponse.put("error", "Bad Request");
-//	            errorResponse.put("message", ex.getMessage());
-//	            return ResponseEntity
-//	                    .status(HttpStatus.BAD_REQUEST)
-//	                    .body(errorResponse);
-//	        }
+	@ExceptionHandler(JokesException.class)
+	 public ResponseEntity<Map<String, String>> handleJokesException(JokesException ex) {	        Map<String, String> errorResponse = new HashMap<>();
+	        
+	 if (ex.getMessage().contains("exceeded the 100 request limit")) {
+	        errorResponse.put("error", "Rate Limit Exceeded");
+	        errorResponse.put("message", ex.getMessage());
+	        return ResponseEntity
+	                .status(HttpStatus.TOO_MANY_REQUESTS)
+	                .body(errorResponse);
+	 
+	 }   else if (ex.getMessage().contains("Database")) {
+	            errorResponse.put("error", "Database Error");
+	            return ResponseEntity
+	                    .status(HttpStatus.SERVICE_UNAVAILABLE)
+	                    .body(errorResponse);
+	        }
+	        
+	        else if (ex.getMessage().contains("Invalid joke count")) {
+	            // Return 500 Internal Server Error for invalid count
+	            errorResponse.put("error", "Internal Server Error");
+	            errorResponse.put("message", ex.getMessage());
+	            return ResponseEntity
+	                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                    .body(errorResponse);
+	        }
+	        
+	        else {
+	            errorResponse.put("error", "Bad Request");
+	            errorResponse.put("message", ex.getMessage());
+	            return ResponseEntity
+	                    .status(HttpStatus.BAD_REQUEST)
+	                    .body(errorResponse);
+	        }
 	        
 	        
-//	    }
+    }
+	
+	 @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+	    public ResponseEntity<Map<String, String>> handleTypeMismatch(MethodArgumentTypeMismatchException ex) {
+	        Map<String, String> errorResponse = new HashMap<>();
+	        errorResponse.put("error", "Bad Request");
+	        errorResponse.put("message", "Only integers are allowed for the count parameter.");
+	        return ResponseEntity
+	                .status(HttpStatus.BAD_REQUEST)
+	                .body(errorResponse);
+	    }
 
 	    @ExceptionHandler(Exception.class)
 	    public ResponseEntity<Map<String, String>> handleGenericException(Exception ex) {
