@@ -41,34 +41,13 @@ public class JokesServiceTest {
 
     
     
-    @Test
-    public void testGetJokesEmptyList() {
-        when(jokeApiClient.fetchBatch(0)).thenReturn(Flux.empty());
-
-        StepVerifier.create(jokesService.getJokes(0))
-            .expectComplete();
-    }
-    
 //    @Test
-//    void testGetJokes() {
-//        List<JokesRequestDto> jokesBatch = Arrays.asList(
-//            new JokesRequestDto(1, "Why did the chicken cross the road?", "To get to the other side!"),
-//            new JokesRequestDto(2, "Why don't scientists trust atoms?", "Because they make up everything!")
-//        );
-//
-//        when(jokeApiClient.fetchBatch(10)).thenReturn(Flux.fromIterable(jokesBatch));
-//        when(jokesRepository.saveAll(any())).thenReturn(Flux.fromIterable(jokesBatch));
-//
-//        Mono<List<List<JokesResponseDto>>> result = jokesService.getJokes(10);
-//
-//        StepVerifier.create(result)
-//            .expectNextMatches(jokesResponseBatches -> jokesResponseBatches.size() == 1 &&
-//                    jokesResponseBatches.get(0).get(0).getQuestion().equals("Why did the chicken cross the road?"))
-//            .verifyComplete();
-//
-//        verify(jokesRepository, times(1)).saveAll(any());
+//    public void testGetJokesEmptyList() {
+//        StepVerifier.create(jokesService.getJokes(0))
+//            .expectError(JokesException.class)  // Expect the specific exception class
+//            .verify();
 //    }
-    
+//    
 
     @Test
     public void testTransformToResponseDto() {

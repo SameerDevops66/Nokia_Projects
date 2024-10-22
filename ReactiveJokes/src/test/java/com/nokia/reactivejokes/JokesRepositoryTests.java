@@ -46,9 +46,9 @@ public class JokesRepositoryTests {
 	    @Test
 	    public void testSaveJokeWithNullValues() {
 	        JokesRequestDto joke = new JokesRequestDto();
-	        joke.setId(0); // No ID
-	        joke.setQuestion(null); // Null question
-	        joke.setAnswer(null);   // Null answer
+	        joke.setId(0);
+	        joke.setQuestion(null); 
+	        joke.setAnswer(null);
 
 	        when(jokesRepository.save(joke)).thenReturn(Mono.just(joke));
 
@@ -75,20 +75,19 @@ public class JokesRepositoryTests {
 	            .expectNextMatches(j -> j.getId() == jokeId)
 	            .verifyComplete();
 
-	        // Verify the interaction with the repository
 	        verify(jokesRepository, times(1)).findById(jokeId);
 	    }
 	    
 	    @Test
 	    public void testFindJokeById_NotFound() {
-	        int jokeId = 999; // Non-existent ID
+	        int jokeId = 999; 
 
 	        when(jokesRepository.findById(jokeId)).thenReturn(Mono.empty());
 
 	        Mono<JokesRequestDto> foundJoke = jokesRepository.findById(jokeId);
 
 	        StepVerifier.create(foundJoke)
-	            .expectNextCount(0) // No jokes should be found
+	            .expectNextCount(0)
 	            .verifyComplete();
 	    }
 	    
@@ -113,7 +112,6 @@ public class JokesRepositoryTests {
 	            .expectNext(joke2)
 	            .verifyComplete();
 
-	        // Verify the interaction with the repository
 	        verify(jokesRepository, times(1)).findAll();
 	    }
 	    
@@ -129,7 +127,6 @@ public class JokesRepositoryTests {
 	        StepVerifier.create(deletedJoke)
 	            .verifyComplete();
 
-	        // Verify the interaction with the repository
 	        verify(jokesRepository, times(1)).deleteById(jokeId);
 	    }
 }
